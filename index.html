@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeSpace SMA - Portal Edukasi & Pelaporan Anti-Cyberbullying</title>
+    <style>
+        /* Pengaturan Dasar & Warna */
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #0f172a;
+            --bg-light: #f8fafc;
+            --text-main: #334155;
+            --accent: #10b981;
+            --danger: #ef4444;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+        }
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        /* Navigasi */
+        nav {
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            text-decoration: none;
+        }
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 1.5rem;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--secondary);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary), #3b82f6);
+            color: white;
+            text-align: center;
+            padding: 5rem 10%;
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .hero p {
+            font-size: 1.15rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            opacity: 0.95;
+        }
+        .btn {
+            display: inline-block;
+            background-color: white;
+            color: var(--primary);
+            padding: 0.8rem 1.8rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+
+        /* Container & Section */
+        section {
+            padding: 4rem 10%;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+        .section-subtitle {
+            text-align: center;
+            color: #64748b;
+            margin-bottom: 3rem;
+        }
+
+        /* Grid Kartu Masalah */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border-top: 4px solid var(--primary);
+        }
+        .card h3 {
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+        .card ul {
+            padding-left: 1.2rem;
+        }
+        .card li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Tujuan & Sasaran */
+        .info-box {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        /* Fitur Interaktif */
+        .interactive-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+        .feature-box {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+        }
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+            color: var(--secondary);
+        }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 0.95rem;
+        }
+        .simulasi-badge {
+            background-color: #fef3c7;
+            color: #92400e;
+            padding: 0.5rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+            font-weight: 600;
+        }
+
+        /* Hasil Laporan & Kuis */
+        .result-box {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 8px;
+            background-color: #ecfdf5;
+            border: 1px solid var(--accent);
+            color: #065f46;
+            display: none;
+        }
+        .ticket-list {
+            margin-top: 1.5rem;
+        }
+        .ticket-item {
+            background: #f1f5f9;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 0.8rem;
+            border-left: 4px solid var(--accent);
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--secondary);
+            color: white;
+            text-align: center;
+            padding: 2.5rem 10%;
+            margin-top: 2rem;
+        }
+        footer p {
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+        .disclaimer {
+            color: #94a3b8;
+            font-size: 0.85rem;
+            margin-top: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                margin-top: 1rem;
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+            .hero h1 { font-size: 2rem; }
+            section { padding: 3rem 5%; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigasi -->
+    <nav>
+        <a href="#beranda" class="logo">🛡️ SafeSpace SMA</a>
+        <ul class="nav-links">
+            <li><a href="#beranda">Beranda</a></li>
+            <li><a href="#masalah">Analisis Masalah</a></li>
+            <li><a href="#tujuan">Tujuan & Sasaran</a></li>
+            <li><a href="#fitur">Lapor & Cek Keamanan</a></li>
+            <li><a href="#tentang">Tentang</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="beranda" class="hero">
+        <h1>Lawan Cyberbullying di Lingkungan Sekolah</h1>
+        <p>Ruang aman digital untuk edukasi literasi media sosial dan simulasi pelaporan perundungan siber secara anonim bagi pelajar SMA.</p>
+        <a href="#fitur" class="btn">Coba Fitur Pelaporan & Kuis</a>
+    </header>
+
+    <!-- Analisis Masalah -->
+    <section id="masalah">
+        <h2 class="section-title">Analisis Dampak Sosial Informatika</h2>
+        <p class="section-subtitle">Memahami akar masalah perundungan siber (cyberbullying) di kalangan pelajar</p>
+        
+        <div class="grid-3">
+            <div class="card">
+                <h3>🔍 Penyebab Utama</h3>
+                <ul>
+                    <li><strong>Anonimitas Media Sosial:</strong> Penggunaan akun palsu (*second account*) membuat pelaku merasa bebas berkomentar negatif tanpa takut ketahuan.</li>
+                    <li><strong>Kurangnya Empati Digital:</strong> Pelaku tidak melihat ekspresi korban secara langsung sehingga meremehkan dampak kata-katanya.</li>
+                    <li><strong>Tekanan Kelompok (Peer Pressure):</strong> Ikut-ikutan menyebarkan rumor atau meme yang merendahkan teman di grup chat.</li>
+                </ul>
+            </div>
+
+            <div class="card" style="border-top-color: var(--danger);">
+                <h3>⚠️ Dampak yang Ditimbulkan</h3>
+                <ul>
+                    <li><strong>Kesehatan Mental:</strong> Korban mengalami kecemasan berlebih, stres, rasa malu, hingga menarik diri dari pergaulan sekolah.</li>
+                    <li><strong>Penurunan Prestasi:</strong> Sulit berkonsentrasi saat belajar di kelas dan menurunnya motivasi ke sekolah.</li>
+                    <li><strong>Jejak Digital Permanen:</strong> Konten ejekan yang terlanjur tersebar sulit dihapus sepenuhnya dari internet.</li>
+                </ul>
+            </div>
+
+            <div class="card" style="border-top-color: var(--accent);">
+                <h3>👥 Pihak yang Terdampak</h3>
+                <ul>
+                    <li><strong>Siswa (Korban):</strong> Pihak yang paling dirugikan secara psikologis dan sosial.</li>
+                    <li><strong>Lingkungan Sekolah:</strong> Suasana belajar menjadi tidak kondusif dan memicu konflik antarsiswa.</li>
+                    <li><strong>Orang Tua & Guru BK:</strong> Kesulitan memantau aktivitas digital siswa dan menangani trauma yang dialami korban.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tujuan & Sasaran -->
+    <section id="tujuan" style="background-color: #e2e8f0;">
+        <h2 class="section-title">Tujuan & Sasaran Pengguna</h2>
+        <p class="section-subtitle">Rancangan solusi digital yang relevan dan tepat sasaran</p>
+
+        <div class="info-box">
+            <div>
+                <h3>🎯 Tujuan Pengembangan Website</h3>
+                <p style="margin-top: 0.8rem;">
+                    1. Meningkatkan kesadaran siswa mengenai bahaya dan bentuk-bentuk *cyberbullying*.<br>
+                    2. Memberikan sarana simulasi pelaporan yang aman dan rahasia bagi siswa yang takut melapor secara langsung.<br>
+                    3. Membantu siswa mengevaluasi kebiasaan bermedia sosial mereka melalui fitur pengecekan mandiri.
+                </p>
+            </div>
+            <div>
+                <h3>🎓 Sasaran Pengguna</h3>
+                <p style="margin-top: 0.8rem;">
+                    <strong>Utama:</strong> Siswa-siswi jenjang SMA (Kelas X, XI, dan XII) yang aktif menggunakan media sosial dan aplikasi pesan instan.<br><br>
+                    <strong>Pendukung:</strong> Guru Bimbingan Konseling (BK) dan pengurus OSIS sebagai fasilitator kampanye sekolah ramah anak.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fitur Interaktif -->
+    <section id="fitur">
+        <h2 class="section-title">Fitur Interaktif Solusi</h2>
+        <p class="section-subtitle">Gunakan fitur di bawah ini untuk simulasi pelaporan atau mengecek keamanan jejak digitalmu</p>
+
+        <div class="interactive-container">
+            <!-- Fitur 1: Form Pelaporan Simulasi -->
+            <div class="feature-box">
+                <span class="simulasi-badge">⚠️ Mode Simulasi (Gunakan Data Fiktif)</span>
+                <h3>📝 Formulir Laporan Anonim</h3>
+                <p style="font-size: 0.9rem; margin-bottom: 1.2rem; color: #64748b;">
+                    Laporkan tindakan perundungan siber yang kamu alami atau saksikan. Identitas pelapor dirahasiakan.
+                </p>
+
+                <form id="reportForm">
+                    <div class="form-group">
+                        <label for="namaSamaran">Nama Samaran / Inisial (Simulasi)</label>
+                        <input type="text" id="namaSamaran" placeholder="Contoh: Siswa_Peduli01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="platform">Platform Kejadian</label>
+                        <select id="platform" required>
+                            <option value="">-- Pilih Platform --</option>
+                            <option value="Instagram">Instagram (Komentar / DM / Story)</option>
+                            <option value="WhatsApp">Grup WhatsApp Kelas / Angkatan</option>
+                            <option value="TikTok">TikTok</option>
+                            <option value="Lainnya">Media Sosial Lainnya</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="kronologi">Deskripsi Singkat Kejadian (Simulasi)</label>
+                        <textarea id="kronologi" rows="3" placeholder="Ceritakan kronologi simulasi tanpa menyebut nama asli orang lain..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Kirim Laporan Simulasi</button>
+                </form>
+
+                <div id="reportResult" class="result-box"></div>
+
+                <div class="ticket-list" id="ticketList">
+                    <h4 style="font-size: 0.95rem; margin-bottom: 0.5rem;">Riwayat Laporan Simulasi Masuk:</h4>
+                    <div class="ticket-item">
+                        <strong>Tiket #SS-1042</strong> (Instagram) - Status: <em>Diterima Konselor BK (Simulasi)</em><br>
+                        <small>Pelapor: Bintang_XI | "Penyebaran foto editan tanpa izin di akun anonim."</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fitur 2: Kuis Evaluasi Diri -->
+            <div class="feature-box">
+                <h3>🧠 Cek Kebiasaan Digitalmu</h3>
+                <p style="font-size: 0.9rem; margin-bottom: 1.2rem; color: #64748b;">
+                    Jawab 3 pertanyaan singkat berikut untuk melihat seberapa aman dan bijak aktivitas digitalmu di sekolah.
+                </p>
+
+                <form id="quizForm">
+                    <div class="form-group">
+                        <label>1. Jika teman membagikan aib/foto memalukan siswa lain di grup chat, apa tindakanmu?</label>
+                        <select id="q1" required>
+                            <option value="0">-- Pilih Jawaban --</option>
+                            <option value="1">Ikut menertawakan agar dianggap kompak</option>
+                            <option value="2">Diam saja dan membiarkannya</option>
+                            <option value="3">Tidak ikut menyebarkan dan mengingatkan untuk menghapusnya</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>2. Seberapa sering kamu memeriksa ulang komentar sebelum mempostingnya?</label>
+                        <select id="q2" required>
+                            <option value="0">-- Pilih Jawaban --</option>
+                            <option value="1">Jarang, langsung ketik sesuai emosi</option>
+                            <option value="2">Kadang-kadang saja</option>
+                            <option value="3">Selalu berpikir apakah komentar tersebut menyakiti orang lain</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>3. Apakah kamu menyimpan bukti (screenshot) jika mengalami perundungan online?</label>
+                        <select id="q3" required>
+                            <option value="0">-- Pilih Jawaban --</option>
+                            <option value="1">Tidak pernah, langsung saya hapus</option>
+                            <option value="2">Tahu caranya tapi bingung melapor ke mana</option>
+                            <option value="3">Ya, saya simpan bukti dan berani melapor ke guru/orang tua</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%; background-color: var(--accent);">Lihat Hasil Evaluasi</button>
+                </form>
+
+                <div id="quizResult" class="result-box"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer / Tentang Proyek -->
+    <footer id="tentang">
+        <h3>SafeSpace SMA - Proyek PSAS Informatika Kelas XI</h3>
+        <p>Dikembangkan oleh: <strong>[Rifka Sefrina Yunita Anggraini]</strong> | Kelas: <strong>[XI-P4]</strong></p>
+        <p class="disclaimer">
+            Catatan: Website ini dibuat sebagai prototipe edukasi untuk tugas mata pelajaran Informatika. 
+            Seluruh data pada fitur pelaporan bersifat simulasi dan tidak terhubung dengan server eksternal.
+        </p>
+    </footer>
+
+    <!-- Logika JavaScript Interaktif -->
+    <script>
+        // 1. Logika Formulir Laporan Simulasi
+        document.getElementById('reportForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const nama = document.getElementById('namaSamaran').value;
+            const platform = document.getElementById('platform').value;
+            const kronologi = document.getElementById('kronologi').value;
+            
+            // Membuat nomor tiket acak
+            const ticketNumber = 'SS-' + Math.floor(1000 + Math.random() * 9000);
+            
+            // Menampilkan pesan sukses
+            const resultBox = document.getElementById('reportResult');
+            resultBox.style.display = 'block';
+            resultBox.innerHTML = `
+                <strong>✅ Laporan Simulasi Berhasil Tercatat!</strong><br>
+                Nomor Tiket Anda: <strong>#${ticketNumber}</strong><br>
+                Silakan simpan nomor tiket ini untuk konsultasi lebih lanjut dengan Guru BK sekolah (Kontak Simulasi: 0812-0000-1111).
+            `;
+
+            // Menambahkan ke daftar riwayat simulasi di layar
+            const ticketList = document.getElementById('ticketList');
+            const newTicket = document.createElement('div');
+            newTicket.className = 'ticket-item';
+            newTicket.innerHTML = `
+                <strong>Tiket #${ticketNumber}</strong> (${platform}) - Status: <em>Menunggu Tinjauan (Simulasi)</em><br>
+                <small>Pelapor: ${nama} | "${kronologi}"</small>
+            `;
+            ticketList.appendChild(newTicket);
+
+            // Reset form
+            this.reset();
+        });
+
+        // 2. Logika Kuis Evaluasi Diri
+        document.getElementById('quizForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const q1 = parseInt(document.getElementById('q1').value);
+            const q2 = parseInt(document.getElementById('q2').value);
+            const q3 = parseInt(document.getElementById('q3').value);
+            
+            if (q1 === 0 || q2 === 0 || q3 === 0) {
+                alert('Harap pilih jawaban untuk semua pertanyaan terlebih dahulu.');
+                return;
+            }
+
+            const totalScore = q1 + q2 + q3;
+            const quizResult = document.getElementById('quizResult');
+            quizResult.style.display = 'block';
+
+            if (totalScore >= 8) {
+                quizResult.style.backgroundColor = '#ecfdf5';
+                quizResult.style.borderColor = '#10b981';
+                quizResult.style.color = '#065f46';
+                quizResult.innerHTML = `<strong>🌟 Skor: ${totalScore}/9 (Pelopor Digital Positif!)</strong><br>Kamu sudah sangat bijak dalam bermedia sosial dan memahami cara melindungi diri maupun teman dari cyberbullying.`;
+            } else if (totalScore >= 5) {
+                quizResult.style.backgroundColor = '#fef3c7';
+                quizResult.style.borderColor = '#f59e0b';
+                quizResult.style.color = '#92400e';
+                quizResult.innerHTML = `<strong>⚠️ Skor: ${totalScore}/9 (Cukup Waspada)</strong><br>Kamu sudah memahami dasar etika digital, namun perlu lebih berani mengambil sikap saat melihat perundungan di sekitar lingkunganmu.`;
+            } else {
+                quizResult.style.backgroundColor = '#fef2f2';
+                quizResult.style.borderColor = '#ef4444';
+                quizResult.style.color = '#991b1b';
+                quizResult.innerHTML = `<strong>🚨 Skor: ${totalScore}/9 (Perlu Lebih Bijak)</strong><br>Hati-hati! Kebiasaan bermedia sosialmu berisiko memicu atau memperparah cyberbullying. Yuk mulai terapkan empati digital!`;
+            }
+        });
+    </script>
+</body>
+</html>
